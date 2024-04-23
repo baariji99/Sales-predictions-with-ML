@@ -29,3 +29,34 @@ print(mode_of_Outlet_size)
 big_mart_data.isnull().sum()
 #Data Analysis
 big_mart_data.describe()
+sns.set()
+# Item_Weight distribution
+plt.figure(figsize=(6,6))
+sns.distplot(big_mart_data['Item_Weight'])
+plt.show()
+# Item Visibility distribution
+plt.figure(figsize=(6,6))
+sns.distplot(big_mart_data['Item_Visibility'])
+plt.show()
+# Item MRP distribution
+plt.figure(figsize=(6,6))
+sns.distplot(big_mart_data['Item_MRP'])
+plt.show()
+# Item_Outlet_Sales distribution
+plt.figure(figsize=(6,6))
+sns.distplot(big_mart_data['Item_Outlet_Sales'])
+plt.show()
+# Outlet_Establishment_Year column
+plt.figure(figsize=(6,6))
+sns.countplot(x='Outlet_Establishment_Year', data=big_mart_data)
+plt.show()
+# Item_Fat_Content column
+plt.figure(figsize=(6,6))
+sns.countplot(x='Item_Fat_Content', data=big_mart_data)
+plt.show()
+# Item_Type column
+plt.figure(figsize=(30,6))
+sns.countplot(x='Item_Type', data=big_mart_data)
+plt.show()
+big_mart_data['Item_Fat_Content'].value_counts()
+big_mart_data.replace({'Item_Fat_Content': {'low fat':'Low Fat','LF':'Low Fat', 'reg':'Regular'}}, inplace=True)
