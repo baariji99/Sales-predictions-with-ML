@@ -7,7 +7,8 @@ from sklearn.model_selection import train_test_split
 from xgboost import XGBRegressor
 from sklearn import metrics
 # loading the data from csv file to Pandas DataFrame
-super_mart_data = pd.read_csv('/content/Train.csv')
+super_mart_data = pd.read_csv('/Users/arijit/Downloads/sales_prediction.csv')
+
 # first 5 rows of the dataframe
 super_mart_data.head()
 # number of data points & number of features
@@ -68,6 +69,9 @@ super_mart_data['Item_Fat_Content'] = encoder.fit_transform(super_mart_data['Ite
 super_mart_data['Item_Type'] = encoder.fit_transform(super_mart_data['Item_Type'])
 
 super_mart_data['Outlet_Identifier'] = encoder.fit_transform(super_mart_data['Outlet_Identifier'])
+super_mart_data['Outlet_Location_Type'] = encoder.fit_transform(super_mart_data['Outlet_Location_Type'])
+super_mart_data['Outlet_Type'] = encoder.fit_transform(super_mart_data['Outlet_Type'])
+
 
 super_mart_data['Outlet_Size'] = encoder.fit_transform(super_mart_data['Outlet_Size'])
 X = super_mart_data.drop(columns='Item_Outlet_Sales', axis=1)
@@ -86,6 +90,4 @@ test_data_prediction = regressor.predict(X_test)
 r2_test = metrics.r2_score(Y_test, test_data_prediction)
 print('R Squared value = ', r2_test)
 
-super_mart_data['Outlet_Location_Type'] = encoder.fit_transform(super_mart_data['Outlet_Location_Type'])
 
-super_mart_data['Outlet_Type'] = encoder.fit_transform(super_mart_data['Outlet_Type'])
