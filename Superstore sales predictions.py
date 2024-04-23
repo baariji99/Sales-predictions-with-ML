@@ -60,3 +60,32 @@ sns.countplot(x='Item_Type', data=big_mart_data)
 plt.show()
 big_mart_data['Item_Fat_Content'].value_counts()
 big_mart_data.replace({'Item_Fat_Content': {'low fat':'Low Fat','LF':'Low Fat', 'reg':'Regular'}}, inplace=True)
+encoder = LabelEncoder()
+big_mart_data['Item_Identifier'] = encoder.fit_transform(big_mart_data['Item_Identifier'])
+
+big_mart_data['Item_Fat_Content'] = encoder.fit_transform(big_mart_data['Item_Fat_Content'])
+
+big_mart_data['Item_Type'] = encoder.fit_transform(big_mart_data['Item_Type'])
+
+big_mart_data['Outlet_Identifier'] = encoder.fit_transform(big_mart_data['Outlet_Identifier'])
+
+big_mart_data['Outlet_Size'] = encoder.fit_transform(big_mart_data['Outlet_Size'])
+X = big_mart_data.drop(columns='Item_Outlet_Sales', axis=1)
+Y = big_mart_data['Item_Outlet_Sales']
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
+print(X.shape, X_train.shape, X_test.shape)
+regressor = XGBRegressor()
+regressor.fit(X_train, Y_train)
+# prediction on training data
+training_data_prediction = regressor.predict(X_train)
+# R squared Value
+r2_train = metrics.r2_score(Y_train, training_data_prediction)
+# prediction on test data
+test_data_prediction = regressor.predict(X_test)
+# R squared Value
+r2_test = metrics.r2_score(Y_test, test_data_prediction)
+print('R Squared value = ', r2_test)
+
+big_mart_data['Outlet_Location_Type'] = encoder.fit_transform(big_mart_data['Outlet_Location_Type'])
+
+big_mart_data['Outlet_Type'] = encoder.fit_transform(big_mart_data['Outlet_Type'])
